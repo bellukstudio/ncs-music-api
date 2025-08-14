@@ -8,8 +8,7 @@ COPY package*.json ./
 # Install dependencies (termasuk devDependencies untuk build)
 RUN npm ci  && \
     npm cache clean --force && \
-    rm -rf /root/.npm && \
-    rm -rf node_modules
+    rm -rf /root/.npm 
 
 # Production stage    
 FROM node:22-alpine AS production
