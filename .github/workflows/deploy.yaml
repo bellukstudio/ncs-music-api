@@ -1,0 +1,35 @@
+name: Deploy ncs music
+
+on:
+  push:
+    branches:
+      - main
+  jobs:
+    pull-changes:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+
+        - name: Pull latest changes
+          uses: appleboy/ssh-action@v1.0.0
+          with:
+            host: ${{ secrets.VPS_HOST }}
+            username: ${{ secrets.VPS_USER }}
+            password: ${{ secrets.VPS_PASSWORD }}
+            port: 22
+            script: |
+              cd /home/bellukstudio/projects/music-ncs.ulemindulu.my.id
+              echo "Pulling latest changes..."
+
+              echo "Current user: $(whoami)"
+              echo "Directory owner: $(ls -la . | head -2)"
+              echo "Git directory owner: $(ls -la .git/ | head -2)"
+              
+              git config --global --add safe.directory /home/bellukstudio/projects/music-ncs.ulemindulu.my.id
+              git config --global --add safe.directory '*'
+
+              # Fix ownership issues
+
+              sudo chown -R $(whoami):$(whoami) . || true
+              git pull origin main
