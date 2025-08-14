@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies (termasuk devDependencies untuk build)
-RUN npm run ci --only=production && \
+RUN npm ci  && \
     npm cache clean --force && \
     rm -rf /root/.npm && \
     rm -rf node_modules
