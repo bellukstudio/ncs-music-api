@@ -4,7 +4,7 @@ import cors from "cors";
 import ncs from "nocopyrightsounds-api";
 
 const app = express();
-const PORT = 3001;
+const PORT = 3006;
 
 // Middleware
 app.use(cors());
